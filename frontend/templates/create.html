@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Anime | Anime Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">ANIME<span>DB</span></a>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('create_anime') }}">Add Anime</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="form-container">
+            <p class="eyebrow">YOUR COLLECTION</p>
+            <h1>Add New Anime</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="flash-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('create_anime') }}">
+
+                <div class="form-group">
+                    <label for="anilist_id">AniList ID *</label>
+                    <input type="number" id="anilist_id" name="anilist_id" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="average_score">Average Score</label>
+                    <input type="number" id="average_score" name="average_score" step="any">
+                </div>
+
+                <div class="form-group">
+                    <label for="popularity">Popularity</label>
+                    <input type="number" id="popularity" name="popularity">
+                </div>
+
+                <div class="form-group">
+                    <label for="episodes">Episodes</label>
+                    <input type="number" id="episodes" name="episodes">
+                </div>
+
+                <div class="form-group">
+                    <label for="release_year">Release Year</label>
+                    <input type="number" id="release_year" name="release_year">
+                </div>
+
+                <div class="form-group">
+                    <label for="season">Season</label>
+                    <select id="season" name="season">
+                        <option value="">Select Season</option>
+                        <option value="WINTER">Winter</option>
+                        <option value="SPRING">Spring</option>
+                        <option value="SUMMER">Summer</option>
+                        <option value="FALL">Fall</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="anime_format">Format</label>
+                    <select id="anime_format" name="anime_format">
+                        <option value="">Select Format</option>
+                        <option value="TV">TV</option>
+                        <option value="TV_SHORT">TV Short</option>
+                        <option value="MOVIE">Movie</option>
+                        <option value="SPECIAL">Special</option>
+                        <option value="OVA">OVA</option>
+                        <option value="ONA">ONA</option>
+                        <option value="MUSIC">Music</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="genres">Genres</label>
+                    <input
+                        type="text"
+                        id="genres"
+                        name="genres"
+                        placeholder="Action, Adventure, Fantasy"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="anilist_url">AniList URL</label>
+                    <input type="url" id="anilist_url" name="anilist_url">
+                </div>
+
+                <button type="submit" class="primary-button">
+                    Create Anime
+                </button>
+
+                <a href="{{ url_for('home') }}" class="details-link">
+                    Cancel
+                </a>
+
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

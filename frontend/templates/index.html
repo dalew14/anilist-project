@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">ANIME<span>DB</span></a>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('create_anime') }}">Add Anime</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            
+            <h1>Top 100 Anime List</h1>
+            <p>Explore the top anime in the database, browse their information, and manage your collection.</p>
+        </section>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="flash-message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form class="controls" method="GET" action="{{ url_for('home') }}">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search anime..."
+                value="{{ search }}"
+            >
+
+            <select name="genre">
+                <option value="">All Genres</option>
+                {% for genre in genres %}
+                    <option value="{{ genre }}"
+                        {% if selected_genre == genre %}selected{% endif %}>
+                        {{ genre }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <select name="format">
+                <option value="">All Formats</option>
+                {% for anime_format in formats %}
+                    <option value="{{ anime_format }}"
+                        {% if selected_format == anime_format %}selected{% endif %}>
+                        {{ anime_format }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit" class="add-button">Search</button>
+            <a href="{{ url_for('create_anime') }}" class="add-button">Add Anime</a>
+        </form>
+
+        <section>
+            <div class="results-header">
+                <h2>Anime Collection</h2>
+                <p>{{ anime_list|length }} results found</p>
+            </div>
+
+            <div class="anime-grid">
+                {% for anime in anime_list %}
+                    <article class="anime-card">
+                        <div class="anime-card-content">
+                            <span class="anime-score">
+                                Score: {{ anime.average_score if anime.average_score is not none else "N/A" }}
+                            </span>
+
+                            <h3>{{ anime.title }}</h3>
+
+                            <p class="anime-info">
+                                {{ anime.release_year or "Year unknown" }}
+                                {% if anime.anime_format %}
+                                    · {{ anime.anime_format }}
+                                {% endif %}
+                            </p>
+
+                            <p class="anime-info">
+                                {{ anime.episodes or "Unknown" }} episodes
+                            </p>
+
+                            <a
+                                href="{{ url_for('anime_details', anime_id=anime.id) }}"
+                                class="details-link"
+                            >
+                                View Details →
+                            </a>
+                        </div>
+                    </article>
+                {% else %}
+                    <p class="empty-message">
+                        No anime found. Try changing your search or filters.
+                    </p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>

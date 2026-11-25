@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit {{ anime.title }} | Anime Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">ANIME<span>DB</span></a>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('create_anime') }}">Add Anime</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="form-container">
+            <p class="eyebrow">YOUR COLLECTION</p>
+            <h1>Edit Anime</h1>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="flash-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" action="{{ url_for('edit_anime', anime_id=anime.id) }}">
+
+                <div class="form-group">
+                    <label>AniList ID</label>
+                    <input type="number" value="{{ anime.anilist_id }}" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input type="text" id="title" name="title" value="{{ anime.title }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="average_score">Average Score</label>
+                    <input type="number" id="average_score" name="average_score" step="any"
+                           value="{{ anime.average_score if anime.average_score is not none else '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="popularity">Popularity</label>
+                    <input type="number" id="popularity" name="popularity"
+                           value="{{ anime.popularity if anime.popularity is not none else '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="episodes">Episodes</label>
+                    <input type="number" id="episodes" name="episodes"
+                           value="{{ anime.episodes if anime.episodes is not none else '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="release_year">Release Year</label>
+                    <input type="number" id="release_year" name="release_year"
+                           value="{{ anime.release_year if anime.release_year is not none else '' }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="season">Season</label>
+                    <select id="season" name="season">
+                        <option value="">Select Season</option>
+                        {% for season in ["WINTER", "SPRING", "SUMMER", "FALL"] %}
+                            <option value="{{ season }}"
+                                {% if anime.season == season %}selected{% endif %}>
+                                {{ season|capitalize }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="anime_format">Format</label>
+                    <select id="anime_format" name="anime_format">
+                        <option value="">Select Format</option>
+                        {% for format in ["TV", "TV_SHORT", "MOVIE", "SPECIAL", "OVA", "ONA", "MUSIC"] %}
+                            <option value="{{ format }}"
+                                {% if anime.anime_format == format %}selected{% endif %}>
+                                {{ format|replace("_", " ") }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="genres">Genres</label>
+                    <input
+                        type="text"
+                        id="genres"
+                        name="genres"
+                        value="{{ anime.genres|join(', ') if anime.genres else '' }}"
+                        placeholder="Action, Adventure, Fantasy"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description">{{ anime.description or '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="anilist_url">AniList URL</label>
+                    <input
+                        type="url"
+                        id="anilist_url"
+                        name="anilist_url"
+                        value="{{ anime.anilist_url or '' }}"
+                    >
+                </div>
+
+                <button type="submit" class="primary-button">
+                    Save Changes
+                </button>
+
+                <a href="{{ url_for('anime_details', anime_id=anime.id) }}"
+                   class="details-link">
+                    Cancel
+                </a>
+
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>

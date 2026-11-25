@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ anime.title }} | Anime Database</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="navbar">
+        <a href="{{ url_for('home') }}" class="logo">ANIME<span>DB</span></a>
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('create_anime') }}">Add Anime</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="details-container">
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="flash-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <p class="eyebrow">ANIME DETAILS</p>
+            <h1>{{ anime.title }}</h1>
+
+            <p><strong>AniList ID:</strong> {{ anime.anilist_id }}</p>
+            <p><strong>Average Score:</strong> {{ anime.average_score if anime.average_score is not none else "N/A" }}</p>
+            <p><strong>Popularity:</strong> {{ anime.popularity if anime.popularity is not none else "N/A" }}</p>
+            <p><strong>Episodes:</strong> {{ anime.episodes if anime.episodes is not none else "N/A" }}</p>
+            <p><strong>Release Year:</strong> {{ anime.release_year or "N/A" }}</p>
+            <p><strong>Season:</strong> {{ anime.season or "N/A" }}</p>
+            <p><strong>Format:</strong> {{ anime.anime_format or "N/A" }}</p>
+            <p><strong>Genres:</strong> {{ anime.genres|join(", ") if anime.genres else "N/A" }}</p>
+
+            <p><strong>Description:</strong></p>
+            <p class="description">{{ anime.description or "No description available." }}</p>
+
+            {% if anime.anilist_url %}
+                <p>
+                    <strong>AniList Page:</strong>
+                    <a href="{{ anime.anilist_url }}" target="_blank" rel="noopener noreferrer">
+                        View on AniList
+                    </a>
+                </p>
+            {% endif %}
+
+            <div class="details-actions">
+                <a
+                    href="{{ url_for('edit_anime', anime_id=anime.id) }}"
+                    class="add-button"
+                >
+                    Edit Anime
+                </a>
+
+                <form
+                    method="POST"
+                    action="{{ url_for('delete_anime', anime_id=anime.id) }}"
+                >
+                    <button type="submit" class="danger-button">
+                        Delete Anime
+                    </button>
+                </form>
+
+                <a href="{{ url_for('home') }}" class="add-button">
+                    Back to Home
+                </a>
+            </div>
+
+        </section>
+    </main>
+
+</body>
+</html>

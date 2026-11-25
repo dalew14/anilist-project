@@ -1,0 +1,404 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0d111c;
+    color: #f1f3f9;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 8%;
+    background: #121827;
+    border-bottom: 1px solid #252d40;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #5685ff;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 28px;
+}
+
+.navbar nav a {
+    color: #aeb8cc;
+    transition: color 0.2s;
+}
+
+.navbar nav a:hover {
+    color: #5685ff;
+}
+
+
+.container {
+    width: 84%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+
+.hero {
+    padding: 85px 0 65px;
+}
+
+.eyebrow {
+    color: #5685ff;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    max-width: 750px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #5685ff;
+}
+
+.hero > p:last-child {
+    color: #aeb8cc;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 50px;
+}
+
+.controls input,
+.controls select {
+    background: #171f30;
+    color: #f1f3f9;
+    border: 1px solid #303b52;
+    border-radius: 8px;
+    padding: 13px 15px;
+    outline: none;
+}
+
+.controls input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.controls select {
+    min-width: 145px;
+}
+
+.controls input:focus,
+.controls select:focus {
+    border-color: #5685ff;
+}
+
+.controls input::placeholder {
+    color: #8995aa;
+}
+
+.add-button {
+    background: #5685ff;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.add-button:hover {
+    background: #3d6fe8;
+}
+
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.results-header h2 {
+    font-size: 24px;
+}
+
+.results-header p {
+    color: #8995aa;
+    font-size: 14px;
+}
+
+
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+    padding-bottom: 70px;
+}
+
+.anime-card {
+    background: #171f30;
+    border: 1px solid #252f44;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.anime-card:hover {
+    transform: translateY(-5px);
+    border-color: #5685ff;
+}
+
+.anime-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    display: block;
+    background: #252f44;
+}
+
+.anime-card-content {
+    padding: 15px;
+}
+
+.anime-card h3 {
+    font-size: 15px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.anime-card .anime-info {
+    color: #9ba8bd;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.anime-score {
+    display: inline-block;
+    color: #75a0ff;
+    background: #243452;
+    padding: 5px 9px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.anime-card .details-link {
+    display: block;
+    margin-top: 15px;
+    color: #7da1ff;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.anime-card .details-link:hover {
+    color: white;
+}
+
+.empty-message {
+    color: #9ba8bd;
+    grid-column: 1 / -1;
+    padding: 30px 0;
+}
+
+
+.form-container {
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 35px;
+    background: #171f30;
+    border: 1px solid #303b52;
+    border-radius: 12px;
+}
+
+.form-container h1 {
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #c1cbe0;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    background: #0d111c;
+    border: 1px solid #303b52;
+    color: white;
+    border-radius: 7px;
+    padding: 12px;
+    outline: none;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #5685ff;
+}
+
+.primary-button,
+.danger-button {
+    border: none;
+    border-radius: 7px;
+    padding: 12px 20px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.primary-button {
+    background: #5685ff;
+}
+
+.primary-button:hover {
+    background: #3d6fe8;
+}
+
+.danger-button {
+    background: #d94c5c;
+}
+
+.danger-button:hover {
+    background: #b93445;
+}
+
+.details-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 30px;
+    background: #171f30;
+    border-radius: 12px;
+}
+
+.details-container h1 {
+    margin-bottom: 20px;
+}
+
+.details-container p {
+    color: #b2bed2;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.details-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+
+@media (max-width: 1100px) {
+    .anime-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .container {
+        width: 90%;
+    }
+
+    .navbar {
+        padding: 20px 5%;
+    }
+
+    .navbar nav {
+        gap: 15px;
+        font-size: 14px;
+    }
+
+    .hero {
+        padding: 55px 0 40px;
+    }
+
+    .anime-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    .anime-card img {
+        height: 190px;
+    }
+
+    .results-header {
+        align-items: flex-start;
+        gap: 10px;
+        flex-direction: column;
+    }
+
+    .form-container {
+        margin: 30px auto;
+        padding: 22px;
+    }
+}
+
+@media (max-width: 400px) {
+    .anime-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.flash-message {
+    background: #243452;
+    color: #75a0ff;
+    border: 1px solid #303b52;
+    border-radius: 7px;
+    padding: 12px 15px;
+    margin: 15px 0;
+}
+
+.description {
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.details-actions form {
+    display: inline;
+}
+
+.details-actions a {
+    display: inline-block;
+}
